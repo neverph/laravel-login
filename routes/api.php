@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OtpController;
+use App\Http\Controllers\SocialAuthController;
 
 // Redirigir raíz al login
 Route::get('/', fn() => redirect()->route('login'));
@@ -27,4 +28,8 @@ Route::post('/recuperar/validar',[OtpController::class, 'validar']);
 
 Route::get('/recuperar/password', [OtpController::class, 'showNuevaPassword'])->name('otp.nueva_password');
 Route::post('/recuperar/password',[OtpController::class, 'nuevaPassword']);
+
+// ── Social Login (Google / GitHub) ────────────────────────────────────────────
+Route::get('/auth/{provider}/redirect', [SocialAuthController::class, 'redirect'])->name('social.redirect');
+Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])->name('social.callback');
 
